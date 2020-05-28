@@ -16,7 +16,13 @@ android {
         targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.benchmark.junit4.AndroidBenchmarkRunner"
+
+        // Can be one of:
+        //   * None
+        //   * Sampled
+        //   * Method
+        // See full descriptions of available options at: d.android.com/benchmark#profiling
+        testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'sampled'
     }
 
     testBuildType = "release"
@@ -24,7 +30,6 @@ android {
     buildTypes {
         release {
             isDefault = true
-            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-proguard-rules.pro'
             signingConfig signingConfigs.debug
